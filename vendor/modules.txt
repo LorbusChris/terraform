@@ -50,7 +50,7 @@ github.com/ChrisTrenkamp/goxpath/tree/xmltree/xmlnode
 github.com/ChrisTrenkamp/goxpath/xconst
 # github.com/agext/levenshtein v1.2.2
 github.com/agext/levenshtein
-# github.com/agl/ed25519 v0.0.0-20150830182803-278e1ec8e8a6
+# github.com/agl/ed25519 v0.0.0-20170116200512-5312a6153412
 github.com/agl/ed25519
 github.com/agl/ed25519/edwards25519
 # github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20190329064014-6e358769c32a
@@ -280,27 +280,30 @@ github.com/hashicorp/hcl/json/scanner
 github.com/hashicorp/hcl/json/token
 # github.com/hashicorp/hcl/v2 v2.3.0
 github.com/hashicorp/hcl/v2
+github.com/hashicorp/hcl/v2/ext/customdecode
 github.com/hashicorp/hcl/v2/ext/dynblock
+github.com/hashicorp/hcl/v2/ext/tryfunc
 github.com/hashicorp/hcl/v2/ext/typeexpr
 github.com/hashicorp/hcl/v2/gohcl
 github.com/hashicorp/hcl/v2/hcldec
 github.com/hashicorp/hcl/v2/hcled
 github.com/hashicorp/hcl/v2/hclparse
-github.com/hashicorp/hcl/v2/gohcl
-github.com/hashicorp/hcl/v2/ext/typeexpr
-github.com/hashicorp/hcl/v2/ext/dynblock
-github.com/hashicorp/hcl/v2/ext/tryfunc
-github.com/hashicorp/hcl/v2/ext/customdecode
+github.com/hashicorp/hcl/v2/hclsyntax
 github.com/hashicorp/hcl/v2/hcltest
+github.com/hashicorp/hcl/v2/hclwrite
+github.com/hashicorp/hcl/v2/json
 # github.com/hashicorp/hil v0.0.0-20190212112733-ab17b08d6590
 github.com/hashicorp/hil
 github.com/hashicorp/hil/ast
 github.com/hashicorp/hil/parser
 github.com/hashicorp/hil/scanner
-# github.com/hashicorp/serf v0.8.5
+# github.com/hashicorp/serf v0.8.2
 github.com/hashicorp/serf/coordinate
 # github.com/hashicorp/terraform-config-inspect v0.0.0-20191212124732-c6ae6269b9d7
 github.com/hashicorp/terraform-config-inspect/tfconfig
+# github.com/hashicorp/terraform-plugin-sdk v0.0.0-00010101000000-000000000000 => github.com/LorbusChris/terraform-plugin-sdk v1.4.1-0.20200131174740-b03ca7e6023e
+github.com/hashicorp/terraform-plugin-sdk/tfdiags
+github.com/hashicorp/terraform-plugin-sdk/tfplugin5
 # github.com/hashicorp/terraform-svchost v0.0.0-20191011084731-65d371908596
 github.com/hashicorp/terraform-svchost
 github.com/hashicorp/terraform-svchost/auth
@@ -394,7 +397,7 @@ github.com/posener/complete/cmd/install
 github.com/posener/complete/match
 # github.com/satori/go.uuid v1.2.0
 github.com/satori/go.uuid
-# github.com/spf13/afero v1.2.1
+# github.com/spf13/afero v1.2.2
 github.com/spf13/afero
 github.com/spf13/afero/mem
 # github.com/svanharmelen/jsonapi v0.0.0-20180618144545-0c0828c3f16d
