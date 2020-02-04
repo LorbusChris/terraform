@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/go-multierror"
 	"github.com/mitchellh/colorstring"
 
+	"github.com/hashicorp/terraform-plugin-sdk/tfdiags"
 	"github.com/hashicorp/terraform/addrs"
 	"github.com/hashicorp/terraform/command/format"
 	"github.com/hashicorp/terraform/configs"
@@ -29,7 +30,6 @@ import (
 	"github.com/hashicorp/terraform/providers"
 	"github.com/hashicorp/terraform/states"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/hashicorp/terraform/tfdiags"
 )
 
 // flagSweep is a flag available when running tests on the command line. It
@@ -727,7 +727,7 @@ func testIDOnlyRefresh(c TestCase, opts terraform.ContextOpts, step TestStep, r 
 			AttrsFlat: r.Primary.Attributes,
 			Status:    states.ObjectReady,
 		},
-		addrs.ProviderConfig{Type: addrs.NewLegacyProvider("placeholder")}.Absolute(addrs.RootModuleInstance),
+		addrs.LocalProviderConfig{LocalName: "placeholder"}.Absolute(addrs.RootModuleInstance),
 	)
 
 	// Create the config module. We use the full config because Refresh

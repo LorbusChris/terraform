@@ -6,10 +6,10 @@ import (
 
 	"github.com/zclconf/go-cty/cty"
 
+	"github.com/hashicorp/terraform-plugin-sdk/tfdiags"
 	"github.com/hashicorp/terraform/addrs"
 	"github.com/hashicorp/terraform/providers"
 	"github.com/hashicorp/terraform/states"
-	"github.com/hashicorp/terraform/tfdiags"
 )
 
 // EvalRefresh is an EvalNode implementation that does a refresh for
@@ -78,7 +78,7 @@ func (n *EvalRefresh) Eval(ctx EvalContext) (interface{}, error) {
 			"Provider produced invalid object",
 			fmt.Sprintf(
 				"Provider %q planned an invalid value for %s during refresh: %s.\n\nThis is a bug in the provider, which should be reported in the provider's own issue tracker.",
-				n.ProviderAddr.ProviderConfig.Type, absAddr, tfdiags.FormatError(err),
+				n.ProviderAddr.ProviderConfig.LocalName, absAddr, tfdiags.FormatError(err),
 			),
 		))
 	}

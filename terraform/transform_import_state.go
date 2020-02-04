@@ -3,9 +3,9 @@ package terraform
 import (
 	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-sdk/tfdiags"
 	"github.com/hashicorp/terraform/addrs"
 	"github.com/hashicorp/terraform/providers"
-	"github.com/hashicorp/terraform/tfdiags"
 )
 
 // ImportStateTransformer is a GraphTransformer that adds nodes to the
@@ -20,8 +20,9 @@ func (t *ImportStateTransformer) Transform(g *Graph) error {
 		// This will be populated if the targets come from the cli, but tests
 		// may not specify implied provider addresses.
 		providerAddr := target.ProviderAddr
-		if providerAddr.ProviderConfig.Type.Type == "" {
-			providerAddr = target.Addr.Resource.Resource.DefaultProviderConfig().Absolute(target.Addr.Module)
+		if providerAddr.ProviderConfig.LocalName == "" {
+			defaultFQN := target.Addr.Resource.Resource.DefaultProvider()
+			providerAddr = addrs.NewDefaultLocalProviderConfig(defaultFQN.LegacyString()).Absolute(target.Addr.Module)
 		}
 
 		node := &graphNodeImportState{

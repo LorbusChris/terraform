@@ -3,6 +3,7 @@ package terraform
 import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hcldec"
+	"github.com/hashicorp/terraform-plugin-sdk/tfdiags"
 	"github.com/hashicorp/terraform/addrs"
 	"github.com/hashicorp/terraform/configs/configschema"
 	"github.com/hashicorp/terraform/lang"
@@ -10,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform/providers"
 	"github.com/hashicorp/terraform/provisioners"
 	"github.com/hashicorp/terraform/states"
-	"github.com/hashicorp/terraform/tfdiags"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 )
@@ -30,7 +30,7 @@ type MockEvalContext struct {
 
 	InitProviderCalled   bool
 	InitProviderType     string
-	InitProviderAddr     addrs.ProviderConfig
+	InitProviderAddr     addrs.AbsProviderConfig
 	InitProviderProvider providers.Interface
 	InitProviderError    error
 
@@ -43,19 +43,19 @@ type MockEvalContext struct {
 	ProviderSchemaSchema *ProviderSchema
 
 	CloseProviderCalled   bool
-	CloseProviderAddr     addrs.ProviderConfig
+	CloseProviderAddr     addrs.AbsProviderConfig
 	CloseProviderProvider providers.Interface
 
 	ProviderInputCalled bool
-	ProviderInputAddr   addrs.ProviderConfig
+	ProviderInputAddr   addrs.AbsProviderConfig
 	ProviderInputValues map[string]cty.Value
 
 	SetProviderInputCalled bool
-	SetProviderInputAddr   addrs.ProviderConfig
+	SetProviderInputAddr   addrs.AbsProviderConfig
 	SetProviderInputValues map[string]cty.Value
 
 	ConfigureProviderCalled bool
-	ConfigureProviderAddr   addrs.ProviderConfig
+	ConfigureProviderAddr   addrs.AbsProviderConfig
 	ConfigureProviderConfig cty.Value
 	ConfigureProviderDiags  tfdiags.Diagnostics
 
@@ -150,7 +150,7 @@ func (c *MockEvalContext) Input() UIInput {
 	return c.InputInput
 }
 
-func (c *MockEvalContext) InitProvider(t string, addr addrs.ProviderConfig) (providers.Interface, error) {
+func (c *MockEvalContext) InitProvider(t string, addr addrs.AbsProviderConfig) (providers.Interface, error) {
 	c.InitProviderCalled = true
 	c.InitProviderType = t
 	c.InitProviderAddr = addr
@@ -169,26 +169,26 @@ func (c *MockEvalContext) ProviderSchema(addr addrs.AbsProviderConfig) *Provider
 	return c.ProviderSchemaSchema
 }
 
-func (c *MockEvalContext) CloseProvider(addr addrs.ProviderConfig) error {
+func (c *MockEvalContext) CloseProvider(addr addrs.AbsProviderConfig) error {
 	c.CloseProviderCalled = true
 	c.CloseProviderAddr = addr
 	return nil
 }
 
-func (c *MockEvalContext) ConfigureProvider(addr addrs.ProviderConfig, cfg cty.Value) tfdiags.Diagnostics {
+func (c *MockEvalContext) ConfigureProvider(addr addrs.AbsProviderConfig, cfg cty.Value) tfdiags.Diagnostics {
 	c.ConfigureProviderCalled = true
 	c.ConfigureProviderAddr = addr
 	c.ConfigureProviderConfig = cfg
 	return c.ConfigureProviderDiags
 }
 
-func (c *MockEvalContext) ProviderInput(addr addrs.ProviderConfig) map[string]cty.Value {
+func (c *MockEvalContext) ProviderInput(addr addrs.AbsProviderConfig) map[string]cty.Value {
 	c.ProviderInputCalled = true
 	c.ProviderInputAddr = addr
 	return c.ProviderInputValues
 }
 
-func (c *MockEvalContext) SetProviderInput(addr addrs.ProviderConfig, vals map[string]cty.Value) {
+func (c *MockEvalContext) SetProviderInput(addr addrs.AbsProviderConfig, vals map[string]cty.Value) {
 	c.SetProviderInputCalled = true
 	c.SetProviderInputAddr = addr
 	c.SetProviderInputValues = vals

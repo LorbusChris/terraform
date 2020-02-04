@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/hashicorp/terraform-plugin-sdk/tfdiags"
 	"github.com/hashicorp/terraform/addrs"
 	"github.com/hashicorp/terraform/configs/configschema"
 	"github.com/hashicorp/terraform/providers"
 	"github.com/hashicorp/terraform/states"
-	"github.com/hashicorp/terraform/tfdiags"
 )
 
 // UpgradeResourceState will, if necessary, run the provider-defined upgrade
@@ -26,7 +26,8 @@ func UpgradeResourceState(addr addrs.AbsResourceInstance, provider providers.Int
 
 	stateIsFlatmap := len(src.AttrsJSON) == 0
 
-	providerType := addr.Resource.Resource.DefaultProviderConfig().Type
+	// TODO: This should eventually use a proper FQN.
+	providerType := addr.Resource.Resource.DefaultProvider().LegacyString()
 	if src.SchemaVersion > currentVersion {
 		log.Printf("[TRACE] UpgradeResourceState: can't downgrade state for %s from version %d to %d", addr, src.SchemaVersion, currentVersion)
 		var diags tfdiags.Diagnostics
